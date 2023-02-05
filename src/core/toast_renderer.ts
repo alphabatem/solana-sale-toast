@@ -8,6 +8,7 @@ export default class ToastRenderer {
 
 	constructor() {
 		this.container = this.buildContainerNode()
+		document.body.appendChild(this.container)
 	}
 
 	add(toast: Toast) {

@@ -3,7 +3,7 @@ import ToastRenderer from "./toast_renderer";
 
 export default class Client {
 
-	connection? : WebSocket
+	connection?: WebSocket
 
 	renderer = new ToastRenderer()
 
@@ -15,9 +15,10 @@ export default class Client {
 	datastreamURI = "wss://kiki-stream.hellomoon.io"
 	metadataURI = "https://rest-api.hellomoon.io/v0"
 
-	constructor(apiKey: string, subscriptionId: string) {
+	constructor(apiKey: string, subscriptionId: string, enrichMetadata = false) {
 		this.apiKey = apiKey
 		this.subscriptionId = subscriptionId
+		this.enrichMetadata = enrichMetadata
 		this.listen()
 	}
 
@@ -35,11 +36,11 @@ export default class Client {
 
 	listen() {
 		this.connection = new WebSocket(this.datastreamURI);
+		this.connection.onmessage = (m) => this._onMessage(m)
 		this.connection.onopen = () => {
 			console.log("Connected to sale stream")
 			this._subscribe()
 		}
-		this.connection.onmessage = (m) => this._onMessage(m)
 	}
 
 	close() {
@@ -68,7 +69,7 @@ export default class Client {
 			return
 
 		for (let i = 0; i < d.length; i++)
-			this._onSale(d as Sale)
+			this._onSale(new Sale(d[i]))
 	}
 
 	_onSale(sale: Sale) {
