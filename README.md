@@ -1,7 +1,7 @@
 # Solana NFT Sale Toast
 Automatically display recent sales popups to increase your sales on your online store.
 
-(Example Toast)[https://github.com/alphabatem/solana-sale-toast/blob/main/docs/img/moon_04.PNG?raw=true]
+![Example Toast](https://github.com/alphabatem/solana-sale-toast/blob/main/docs/img/moon_04.PNG?raw=true)
 
 ## Quick Start
 
@@ -14,13 +14,13 @@ yarn add @alphabatem/solana-sale-toast
 2. Obtain a Hellomoon API Key & DataStream (https://www.hellomoon.io/developers)
 
 3. Create your data stream (you can add additional filters here if you are only monitoring 1 collection etc) 
-(HelloMoon data stream setup)[https://github.com/alphabatem/solana-sale-toast/blob/main/docs/img/moon_02.PNG?raw=true]
+![HelloMoon data stream setup](https://github.com/alphabatem/solana-sale-toast/blob/main/docs/img/moon_02.PNG?raw=true)
 
 4. Grab your `subscriptionID` from the `Datastreams` section
-   (HelloMoon datastreams)[https://github.com/alphabatem/solana-sale-toast/blob/main/docs/img/moon_03.PNG?raw=true]
+![HelloMoon datastreams](https://github.com/alphabatem/solana-sale-toast/blob/main/docs/img/moon_03.PNG?raw=true)
 
 5. Grab your `apiKey` from the `Dashboard` section
-   (HelloMoon dashboard)[https://github.com/alphabatem/solana-sale-toast/blob/main/docs/img/moon_03.PNG?raw=true]
+![HelloMoon dashboard](https://github.com/alphabatem/solana-sale-toast/blob/main/docs/img/moon_03.PNG?raw=true)
 
 6. Setup the solana toast in your code
 ```js
@@ -55,4 +55,4 @@ import "@alphabatem/solana-sale-toast/css/solana_toast.css";
 ```
 
 9. All set!
-   (Example Toast)[https://github.com/alphabatem/solana-sale-toast/blob/main/docs/img/moon_04.PNG?raw=true]
+![Example Toast](https://github.com/alphabatem/solana-sale-toast/blob/main/docs/img/moon_04.PNG?raw=true)
