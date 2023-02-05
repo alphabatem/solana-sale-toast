@@ -1,13 +1,17 @@
 import {Sale} from "../entities";
 import ToastRenderer from "./toast_renderer";
+import {FilterOpts} from "./filter_opts";
 
-export default class Client {
+
+export class Client {
 
 	connection?: WebSocket
 
 	renderer = new ToastRenderer()
 
 	enrichMetadata = false
+
+	filter?: FilterOpts
 
 	apiKey = ""
 	subscriptionId = ""
@@ -34,11 +38,17 @@ export default class Client {
 		this.datastreamURI = uri
 	}
 
+	setCollectionFilter(filter: FilterOpts) {
+		this.filter = filter
+	}
+
 	listen() {
 		this.connection = new WebSocket(this.datastreamURI);
 		this.connection.onmessage = (m) => this._onMessage(m)
 		this.connection.onopen = () => {
-			setTimeout(() => this._subscribe(), 600) //Stop bug with CONNECTING state
+			setTimeout(() => {
+				this._subscribe()
+			}, 1000) //Stop bug with CONNECTING state
 		}
 	}
 
@@ -75,13 +85,29 @@ export default class Client {
 		if (sale.marketActionType !== "SALE")
 			return //Prevent buggy data
 
+		if (this.filter) {
+			if (this.filter.collectionName && sale.collectionName.toLowerCase() == this.filter.collectionName!.toLowerCase())
+				return //Filter out
+			if (this.filter.minPrice && sale.getSalePrice() <= (this.filter.minPrice! || 0))
+				return //Filter out
+		}
+
 		if (!this.enrichMetadata) {
 			return this.onSale(sale)
 		}
 
 		this.getSaleMetadata(sale).then((metadata) => {
-			sale.setMetadata(metadata)
-			this.onSale(sale)
+			if (!metadata.data || metadata.data.length == 0)
+				return this.onSale(sale)
+
+			const fileData = metadata.data[0].nftMetadataJson.uri
+			fetch(fileData).then(r => r.json()).then(j => {
+				sale.setMetadata(j)
+				this.onSale(sale)
+			}).catch(e => {
+				console.error("Unable to get mint metadata", e)
+				this.onSale(sale)
+			})
 		})
 	}
 
@@ -96,12 +122,24 @@ export default class Client {
 
 
 	getSaleMetadata(sale: Sale) {
-		return fetch(`${this.metadataURI}/nft/mint_information`).catch((e) => {
+		return fetch(`${this.metadataURI}/nft/mint_information`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				"Authorization": `Bearer ${this.apiKey}`,
+				"accept": "application/json"
+			},
+			body: JSON.stringify({
+				nftMint: sale.mint,
+				limit: 1,
+				page: 1
+			})
+		}).then(r => r.json()).catch((e) => {
 			console.error(`unable to fetch metadata for ${sale.mint}`, e)
 		})
 	}
 }
 
-export function CreateWebsocketClient(apiKey: string, subscriptionId: string): Client {
-	return new Client(apiKey, subscriptionId)
+export function CreateSolanaToastClient(apiKey: string, subscriptionId: string, enrichMetadata: boolean = false): Client {
+	return new Client(apiKey, subscriptionId, enrichMetadata)
 }

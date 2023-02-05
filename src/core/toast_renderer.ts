@@ -5,6 +5,8 @@ export default class ToastRenderer {
 	container
 
 	toastTimeout = 10000
+	// removeTimeout = 1000
+	removeTimeout = 5000
 
 	constructor() {
 		this.container = this.buildContainerNode()
@@ -16,7 +18,7 @@ export default class ToastRenderer {
 		this.container.appendChild(t2)
 		setTimeout(() => {
 			t2.classList.remove("show")
-			setTimeout(() => t2.remove(), 1000)
+			setTimeout(() => t2.remove(), this.removeTimeout)
 		}, this.toastTimeout)
 	}
 

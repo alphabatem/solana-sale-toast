@@ -68,16 +68,22 @@ export class Sale {
 	}
 
 	toToast(): Toast {
-		const mint = `${this.mint.slice(0,4)}...${this.mint.slice(this.mint.length-4)}`
-		const buyer = `${this.buyer?.slice(0,4)}...${this.buyer.slice(this.buyer?.length-4)}`
-
-		const title = `${mint} Sold for ${this.getSalePrice().toPrecision(3)} SOL`
-		const body = `${buyer} just purchased ${mint} for ${this.getSalePrice().toPrecision(3)} SOL`
 		const img = this.metadata?.image || ""
-
-		const t = new Toast(title,body, img)
+		const t = new Toast(this.getTitle(),this.getBody(), img)
 		t.setLink(`https://explorer.solana.com/tx/${this.transactionId}`)
 
 		return t
+	}
+
+	getTitle(): string {
+		const mint = `${this.mint.slice(0,3)}...${this.mint.slice(this.mint.length-3)}`
+		return `${mint} Sold for ${this.getSalePrice().toPrecision(3)} SOL`
+	}
+
+	getBody(): string {
+		const mint = `${this.mint.slice(0,3)}...${this.mint.slice(this.mint.length-3)}`
+		const buyer = `${this.buyer?.slice(0,3)}...${this.buyer.slice(this.buyer?.length-3)}`
+
+		return `${buyer} just purchased a ${this.collectionName || mint} for ${this.getSalePrice().toPrecision(3)} SOL on ${this.getMarketplace()}`
 	}
 }
