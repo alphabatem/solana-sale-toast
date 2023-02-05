@@ -15,7 +15,8 @@ export default class ToastRenderer {
 		const t2 = toast.getHTML()
 		this.container.appendChild(t2)
 		setTimeout(() => {
-			t2.remove()
+			t2.classList.remove("show")
+			setTimeout(() => t2.remove(), 1000)
 		}, this.toastTimeout)
 	}
 

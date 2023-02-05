@@ -68,11 +68,11 @@ export class Sale {
 	}
 
 	toToast(): Toast {
-		const mint = `${this.mint.slice(0,4)}...${this.mint.slice(0,4)}`
-		const buyer = `${this.buyer.slice(0,4)}...${this.buyer.slice(0,4)}`
+		const mint = `${this.mint.slice(0,4)}...${this.mint.slice(this.mint.length-4)}`
+		const buyer = `${this.buyer?.slice(0,4)}...${this.buyer.slice(this.buyer?.length-4)}`
 
-		const title = `${mint} Sold for ${this.getSalePrice()}`
-		const body = `${buyer} just purchased ${mint} for ${this.getSalePrice()}`
+		const title = `${mint} Sold for ${this.getSalePrice().toPrecision(3)} SOL`
+		const body = `${buyer} just purchased ${mint} for ${this.getSalePrice().toPrecision(3)} SOL`
 		const img = this.metadata?.image || ""
 
 		const t = new Toast(title,body, img)

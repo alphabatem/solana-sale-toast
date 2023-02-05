@@ -38,8 +38,7 @@ export default class Client {
 		this.connection = new WebSocket(this.datastreamURI);
 		this.connection.onmessage = (m) => this._onMessage(m)
 		this.connection.onopen = () => {
-			console.log("Connected to sale stream")
-			this._subscribe()
+			setTimeout(() => this._subscribe(), 600) //Stop bug with CONNECTING state
 		}
 	}
 
@@ -73,6 +72,9 @@ export default class Client {
 	}
 
 	_onSale(sale: Sale) {
+		if (sale.marketActionType !== "SALE")
+			return //Prevent buggy data
+
 		if (!this.enrichMetadata) {
 			return this.onSale(sale)
 		}
@@ -89,7 +91,6 @@ export default class Client {
 	 * @param sale
 	 */
 	onSale(sale: Sale) {
-		console.log("New Sale", sale)
 		this.renderer.add(sale.toToast())
 	}
 

@@ -28,10 +28,12 @@ export default class Toast {
 		if (this.hasLink()) {
 			toast = document.createElement("a")
 			toast.href = this.link!
+			toast.target = "_blank"
 		} else
 			toast = document.createElement("div")
 
 		toast.classList.add("toast")
+		toast.classList.add("show")
 
 		const toastContainer = document.createElement("div")
 		toastContainer.classList.add("toast-inner")
