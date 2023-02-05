@@ -39,7 +39,7 @@ export default class Client {
 			console.log("Connected to sale stream")
 			this._subscribe()
 		}
-		this.connection.onmessage = this._onMessage
+		this.connection.onmessage = (m) => this._onMessage(m)
 	}
 
 	close() {
