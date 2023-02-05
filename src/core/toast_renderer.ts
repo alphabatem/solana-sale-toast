@@ -26,9 +26,7 @@ export default class ToastRenderer {
 
 	buildContainerNode() {
 		const node = document.createElement("div")
-
-		node.id = "toast-container"
-		node.classList.add("toast-container")
+		node.classList.add("sol-toast-container")
 
 		return node
 	}
