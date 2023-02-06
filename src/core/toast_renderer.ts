@@ -6,7 +6,7 @@ export default class ToastRenderer {
 
 	toastTimeout = 10000
 	// removeTimeout = 1000
-	removeTimeout = 5000
+	removeTimeout = 500
 
 	constructor() {
 		this.container = this.buildContainerNode()

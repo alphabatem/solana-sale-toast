@@ -32,6 +32,7 @@ export default class Toast {
 		} else
 			toast = document.createElement("div")
 
+		toast.id = `toast-${Date.now()}`
 		toast.classList.add("toast")
 		toast.classList.add("show")
 
