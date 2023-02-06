@@ -1,11 +1,13 @@
 .sol-toast-container {
 	position: absolute;
-	top: 2%;
+	top: 10%;
 	right: 2%;
 	width: max-content;
 	max-width: 100%;
 	pointer-events: none;
 	z-index: 3;
+	max-height: 85%;
+	overflow: hidden;
 }
 
 .sol-toast-container .toast {
@@ -29,6 +31,10 @@
 	color: white;
 }
 
+.sol-toast-container .toast .toast-body {
+	font-size: 0.8rem;
+}
+
 .toast-inner {
 	height: 100%;
 }
@@ -45,8 +51,12 @@
 	padding: 0.25rem 0.5rem;
 }
 
+
 .toast-img img {
-	max-height: 88px;
+	min-width: 90px;
+	min-height: 90px;
+	opacity: 0;
+	transition: all 0.3s ease;
 }
 
 .toast-body {

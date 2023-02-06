@@ -55,6 +55,7 @@ export default class Toast {
 			toastImg.classList.add("toast-img")
 			const innerImg = document.createElement("img")
 			innerImg.src = this.img
+			innerImg.onload = () => {innerImg.style.opacity='1'}
 			toastImg.appendChild(innerImg)
 
 			toast.appendChild(toastImg)
