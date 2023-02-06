@@ -68,7 +68,7 @@ export class Sale {
 	}
 
 	toToast(): Toast {
-		const img = `https://degencdn.com/v1/nfts/${this.mint}/image.jpg` || this.metadata?.image
+		const img = `https://api.degencdn.com/v1/nfts/${this.mint}/image.jpg` || this.metadata?.image
 		const t = new Toast(this.getTitle(),this.getBody(), img)
 		t.setLink(`https://explorer.solana.com/tx/${this.transactionId}`)
 
