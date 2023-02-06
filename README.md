@@ -3,6 +3,10 @@ Automatically display recent sales popups to increase your sales on your online 
 
 ![Example Toast](https://github.com/alphabatem/solana-sale-toast/blob/main/docs/img/moon_04.PNG?raw=true)
 
+## Powered By
+* HelloMoon Developer platform (https://hellomoon.io)
+* DegenCDN for Images (https://degencdn.com)
+
 ## Quick Start
 
 1. Install Solana Toast
