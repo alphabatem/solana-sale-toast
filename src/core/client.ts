@@ -53,6 +53,7 @@ export class Client {
 	}
 
 	close() {
+		document.querySelectorAll(".sol-toast-container").forEach(e => e.remove());
 		this.connection?.close()
 	}
 
