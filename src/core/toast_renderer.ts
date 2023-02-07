@@ -4,8 +4,8 @@ export default class ToastRenderer {
 
 	container
 
-	toastTimeout = 10000
-	// removeTimeout = 1000
+	// toastTimeout = 10000
+	toastTimeout = 30000
 	removeTimeout = 500
 
 	constructor() {
