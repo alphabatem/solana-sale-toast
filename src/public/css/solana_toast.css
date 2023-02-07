@@ -54,8 +54,11 @@
 	padding: 0.25rem 0.5rem;
 }
 
-.toast-img img {
+.toast-img {
 	background: rgba(255,255,255,0.1);
+}
+
+.toast-img img {
 	height: 90px;
 	opacity: 0;
 	transition: all 0.3s ease;
