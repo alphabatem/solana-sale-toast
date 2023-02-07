@@ -20,8 +20,8 @@
 	background: transparent;
 
 	display: flex;
-	flex-direction: row;
 	flex-flow: column;
+	flex-direction: row;
 }
 
 .sol-toast-container .toast.show {
